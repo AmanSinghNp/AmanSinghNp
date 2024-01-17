@@ -2,3 +2,4 @@
 - 🌱 I’m currently a student in UTS learning Computer Science
 - 💞️ I’m looking to collaborate on just learning the fundamentals of Python and Java
 - 📫 How to reach me DM me @bratva_aman
+- Currently working on Simplify (UTS)
