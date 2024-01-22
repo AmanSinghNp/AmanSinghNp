@@ -20,7 +20,4 @@ I'm a student studying Computer Science at UTS.
 <br />
 
 
-<br>
-<br>
 
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=AmanSinghNp&" alt="AmanSinghNp" /></p>
