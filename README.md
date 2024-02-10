@@ -4,6 +4,9 @@
 
 I'm a student studying Computer Science at UTS.
 
+Projects(Working on):
+1. Simplify (Productivity Web App)
+2. Game Development (Name Wating to be made)
 
 ---
 
