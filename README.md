@@ -2,11 +2,10 @@
 
 **`CS @ UTS`**
 
-I'm a student studying Computer Science at UTS.
+I'm a second-year student studying Computer Science at UTS.
 
 Projects(Working on):
-1. Simplify (Productivity Web App) [On Hold]
-2. JavaFX GUI
+
 
 ---
 
