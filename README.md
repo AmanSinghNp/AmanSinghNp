@@ -87,12 +87,3 @@ Environment: "Antigravity + Claude Code (Agentic Workflow)"
 Philosophy: "Ship fast, understand the primitives."
 ```
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=AmanSinghNp&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" height="160" />
-</div>
-
-<br/>
-
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=AmanSinghNp&bg_color=0f172a&color=38bdf8&line=38bdf8&point=FFFFFF&area=true&hide_border=true" width="100%" alt="Activity Graph" />
-</div>
