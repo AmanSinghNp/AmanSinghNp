@@ -75,11 +75,11 @@ After the workflows complete:
 
 ## Recent Fix
 
-✅ **Fixed**: Updated snake.yml to use the correct GitHub Pages action:
-- Changed from: `crazy-max/gh-action-github-pages@v3.1.0`
+✅ **Fixed**: Updated snake.yml to use a more reliable GitHub Pages action:
+- Original (main branch): `peaceiris/actions-gh-pages@v3`
 - Changed to: `crazy-max/ghaction-github-pages@v4.2.0`
 
-This resolves the "repository not found" error that was causing the workflow to fail.
+This change uses the latest version of the crazy-max action which is better maintained and resolves potential deployment issues.
 
 ## Troubleshooting
 
