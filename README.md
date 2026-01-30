@@ -11,7 +11,11 @@
 </div>
 
 <div align="center">
-  <img src="./profile-3d-contrib/profile-green-dual.svg" width="100%" alt="3D Contribution Graph" />
+  <img src="./profile-3d-contrib/profile-night-green.svg" width="100%" alt="3D Contribution Graph" />
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AmanSinghNp/AmanSinghNp/output/github-contribution-grid-snake-dark.svg" width="100%" alt="Snake Animation" />
 </div>
 
 <br />
