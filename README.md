@@ -21,7 +21,7 @@
 <br />
 
 <div align="center">
-  <em>Final Year CS Student @ <strong>UTS</strong> | Building GradStack @ <strong>Graduated.io</strong></em>
+  <em> CS Student @ <strong>UTS</strong> | Building @ <strong>GradStack</strong></em>
 </div>
 
 <br />
