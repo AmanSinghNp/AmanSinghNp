@@ -21,7 +21,7 @@
 <br />
 
 <div align="center">
-  <em> CS Student @ <strong>UTS</strong> | Building @ <strong>GradStack</strong></em>
+  <em> @ <strong>UTS</strong> | Building @ <strong>GradStack</strong></em>
 </div>
 
 <br />
