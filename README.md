@@ -31,6 +31,7 @@
 *   **[South Asia Earthquake Severity](https://github.com/AmanSinghNp/South-Asia-Earthquake-Severity)**: Spatiotemporal deep learning pipeline predicting earthquake damage.
 *   **[ASL Interpreter AI](https://github.com/AmanSinghNp/ASL-Interpreter-AI)**: Real-time sign language recognition using MediaPipe and OpenCV.
 *   **[Mini JavaScript Projects](https://github.com/AmanSinghNp/Mini-JavaScript-Projects)**: Custom physics engines, financial calculators, and visualizers built from scratch.
+*   **[PalmLab — Gesture Playground](https://github.com/AmanSinghNp/palmlab-gesture-playground)** · **[Launch demo](https://amansinghnp.github.io/palmlab-gesture-playground/)**: A MediaPipe-powered visual instrument for sculpting shapes and bending physics with your hands.
 
 ---
 
