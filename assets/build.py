@@ -151,83 +151,50 @@ banner = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" v
 '''
 
 # ---------------------------------------------------------------- agents
-def glyph(kind, color):
-    c = color
-    if kind == "claude":
-        rays = "".join(f'<line x1="0" y1="-7.5" x2="0" y2="7.5" transform="rotate({a})"/>' for a in range(0, 180, 30))
-        return f'<g stroke="{c}" stroke-width="2.4" stroke-linecap="round">{rays}</g>'
-    if kind == "codex":
-        return f'<path d="M-6 -4 L-1.5 0 L-6 4 M0 5 H6" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
-    if kind == "deepseek":
-        return f'<path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="{c}"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/>'
-    if kind == "mistral":
-        cols = ["#ffd800", "#ffaf00", "#ff8205", "#fa500f"]
-        return "".join(f'<rect x="{-7 + (i % 2) * 7}" y="{-7 + (i // 2) * 7}" width="6" height="6" fill="{cols[i]}"/>' for i in range(4))
-    if kind == "pi":
-        return f'<text x="0" y="5.5" text-anchor="middle" font-family="{SERIF}" font-size="18" fill="{c}">π</text>'
-    if kind == "opencode":
-        return f'<path d="M-3 -6 L-8 0 L-3 6 M3 -6 L8 0 L3 6" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
-    if kind == "antigravity":
-        return f'<path d="M0 7 V-6 M-6 0 L0 -7 L6 0" fill="none" stroke="{c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
-    if kind == "gemini":
-        return f'<path d="M0 -9 C1 -3 3 -1 9 0 C3 1 1 3 0 9 C-1 3 -3 1 -9 0 C-3 -1 -1 -3 0 -9 Z" fill="url(#gem)"/>'
-    if kind == "cursor":
-        return f'<path d="M-5 -7 L6 0 L0.5 1.5 L-2 7 Z" fill="{c}"/>'
-    if kind == "grok":
-        return f'<path d="M-6 7 L6 -7 M-6 -7 L-1 -1.5" fill="none" stroke="{c}" stroke-width="2.4" stroke-linecap="round"/>'
-    if kind == "kimi":
-        return f'<path d="M3 -7 A7 7 0 1 0 7 4 A5.5 5.5 0 1 1 3 -7 Z" fill="{c}"/>'
-    raise KeyError(kind)
+# Square tiles the same size as skillicons.dev's (256 units), with a wider 340 pitch so the names fit.
+# The README sets this image to 83% width: (11 * 340 - 44) / (15 * 300 - 44) keeps the tiles the same size
+# as the 15-icon language row under it. Marks are from Simple Icons (CC0, simpleicons.org), drawn in one colour.
+# Simple Icons has no mark for Codex, Grok or Antigravity, so those three are plain drawn marks.
+SIMPLE_ICONS = {
+    "claude": "m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z",
+    "deepseek": "M23.748 4.651c-.254-.124-.364.113-.512.233-.051.04-.094.09-.137.137-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.155-.708-.311-.955-.65-.172-.24-.219-.509-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.094.172.187.129.323-.082.28-.18.553-.266.833-.055.179-.137.218-.328.14a5.5 5.5 0 0 1-1.737-1.179c-.857-.828-1.631-1.743-2.597-2.46a12 12 0 0 0-.689-.47c-.985-.957.13-1.743.387-1.836.27-.098.094-.433-.778-.428-.872.003-1.67.295-2.687.685a3 3 0 0 1-.465.136 9.6 9.6 0 0 0-2.883-.101c-1.885.21-3.39 1.1-4.497 2.622C.082 8.776-.231 10.854.152 13.02c.403 2.284 1.568 4.175 3.36 5.653 1.857 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.132-.284 4.994-1.86.47.234.962.328 1.78.398.629.058 1.235-.031 1.705-.129.735-.155.684-.836.418-.961-2.155-1.004-1.682-.595-2.112-.926 1.095-1.295 2.768-3.598 3.284-6.733.05-.346.115-.834.108-1.114-.004-.171.035-.238.23-.257a4.2 4.2 0 0 0 1.545-.475c1.397-.763 1.96-2.016 2.093-3.517.02-.23-.004-.467-.247-.588M11.58 18.168c-2.088-1.642-3.101-2.183-3.52-2.16-.39.024-.32.472-.234.763.09.288.207.487.371.74.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.168-1.361-.801-2.5-1.86-3.301-3.306-.775-1.393-1.225-2.888-1.299-4.482-.02-.385.094-.522.477-.592a4.7 4.7 0 0 1 1.53-.038c2.131.311 3.946 1.264 5.467 2.774.868.86 1.525 1.887 2.202 2.89.72 1.066 1.494 2.082 2.48 2.915.348.291.626.513.892.677-.802.09-2.14.109-3.055-.615zm1.001-6.44a.306.306 0 0 1 .415-.287.3.3 0 0 1 .113.074.3.3 0 0 1 .086.214c0 .17-.136.307-.308.307a.303.303 0 0 1-.306-.307m3.11 1.596c-.2.081-.4.151-.591.16a1.25 1.25 0 0 1-.798-.254c-.274-.23-.47-.358-.551-.758a1.7 1.7 0 0 1 .015-.588c.07-.327-.007-.537-.238-.727-.188-.156-.426-.199-.689-.199a.6.6 0 0 1-.254-.078.253.253 0 0 1-.114-.358 1 1 0 0 1 .192-.21c.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.392.451.462.576.685.915.176.264.336.536.446.848.066.194-.02.353-.25.45",
+    "mistralai": "M17.143 3.429v3.428h-3.429v3.429h-3.428V6.857H6.857V3.43H3.43v13.714H0v3.428h10.286v-3.428H6.857v-3.429h3.429v3.429h3.429v-3.429h3.428v3.429h-3.428v3.428H24v-3.428h-3.43V3.429z",
+    "pi": "M0 0v24h6v-6h6v-6H6V6h6v6h6V0Zm18 12v12h6V12Z",
+    "opencode": "M22 24H2V0h20zM17 4.8H7v14.4h10z",
+    "googlegemini": "M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81",
+    "cursor": "M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23",
+    "kimi": "M21.765.351C22.998.351 24 1.353 24 2.586S22.998 4.82 21.765 4.82h-1.974c-.15 0-.26-.12-.26-.26V2.586A2.237 2.237 0 0 1 21.765.35M9.41 13.388l8.447-8.377c.16-.16.07-.471-.14-.471h-4.55s-.1.02-.14.06l-9.099 9.029c-.14.14-.35.02-.35-.21V4.81c0-.15-.1-.27-.221-.27H.22c-.12 0-.22.12-.22.27v18.57c0 .15.1.27.22.27h3.137c.12 0 .22-.12.22-.27v-3.79c0-.08.03-.16.08-.21l2.826-2.796c.07-.07.16-.08.241-.03l7.546 5.551a8.9 8.9 0 0 0 4.018 1.493c.12.01.23-.11.23-.27V19.76c0-.14-.08-.25-.19-.26a5.8 5.8 0 0 1-2.355-.942l-6.533-4.73c-.14-.09-.15-.32-.03-.441",
+}
+DRAWN = {
+    "codex": '<path d="M4 7l5 5-5 5M12 17h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+    "grok": '<path d="M19.5 3.5L4.5 20.5M17 9a7 7 0 1 1-6.5-4.9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+    "antigravity": '<path d="M4 20c2-9 5-15 8-15s6 6 8 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+}
+AGENTS = [("Claude", "claude"), ("Codex", "codex"), ("DeepSeek", "deepseek"), ("Mistral", "mistralai"),
+          ("Pi", "pi"), ("OpenCode", "opencode"), ("Antigravity", "antigravity"), ("Gemini", "googlegemini"),
+          ("Cursor", "cursor"), ("Grok", "grok"), ("Kimi", "kimi")]
 
-AGENTS = [
-    [("Claude", "claude", "#d97757"), ("Codex", "codex", "#10a37f"), ("DeepSeek", "deepseek", "#4d6bfe"),
-     ("Mistral", "mistral", "#fa520f"), ("Pi", "pi", "#c4a7ff"), ("OpenCode", "opencode", "#e6edf3")],
-    [("Antigravity", "antigravity", "#4285f4"), ("Gemini", "gemini", "#8e75ff"), ("Cursor", "cursor", "#e6edf3"),
-     ("Grok", "grok", "#d1d5db"), ("Kimi", "kimi", "#5eb3ff")],
-]
+def mark(key):
+    if key in SIMPLE_ICONS:
+        return f'<path d="{SIMPLE_ICONS[key]}" fill="currentColor"/>'
+    return DRAWN[key]
 
-def pill_row(items, y):
-    parts, x = [], 0
-    for name, kind, color in items:
-        w = 58 + len(name) * 10.2
-        parts.append(f'''<g transform="translate({x:.0f} {y})">
-        <rect width="{w:.0f}" height="44" rx="22" fill="#0f1730" stroke="{color}" stroke-opacity="0.45"/>
-        <circle cx="24" cy="22" r="14" fill="{color}" fill-opacity="0.12"/>
-        <g transform="translate(24 22)">{glyph(kind, color)}</g>
-        <text x="46" y="28.5" font-family="{SANS}" font-size="17" font-weight="600" fill="#e6edf3">{name}</text>
-      </g>''')
-        x += w + 16
-    return "".join(parts), x
-
-rows = []
-for r, items in enumerate(AGENTS):
-    seq, W = pill_row(items, 0)
-    copies = int(2600 // W) + 2
-    body = "".join(f'<g transform="translate({k * W:.0f} 0)">{seq}</g>' for k in range(copies))
-    y = 64 + r * 62
-    dur = W / 40
-    vals = f"0 {y};-{W:.0f} {y}" if r == 0 else f"-{W:.0f} {y};0 {y}"
-    rows.append(f'<g transform="translate(0 {y})">{body}<animateTransform attributeName="transform" type="translate" values="{vals}" dur="{dur:.1f}s" repeatCount="indefinite"/></g>')
-
-agents = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" viewBox="0 0 1200 200" role="img" aria-label="Agents I build with: Claude, Codex, DeepSeek, Mistral, Pi, OpenCode, Antigravity, Gemini, Cursor, Grok, Kimi">
-  <defs>{card_defs(1200, 200)}
-    <linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4796e3"/><stop offset="1" stop-color="#c06bd8"/></linearGradient>
-    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#000"/><stop offset="0.1" stop-color="#fff"/>
-      <stop offset="0.9" stop-color="#fff"/><stop offset="1" stop-color="#000"/>
-    </linearGradient>
-    <mask id="edges"><rect width="1200" height="200" fill="url(#fade)"/></mask>
-  </defs>
-  <g clip-path="url(#card)">
-    <rect width="1200" height="200" fill="url(#bg)"/>
-    <rect width="1200" height="200" fill="url(#grid)"/>
-    <g font-family="{MONO}" font-size="14" letter-spacing="1.5" fill="#6e95a4">
-      <text x="40" y="38">// AGENTS IN THE LOOP</text>
-      <text x="1160" y="38" text-anchor="end">11 TOOLS  ·  1 TERMINAL</text>
-    </g>
-    <g mask="url(#edges)">{"".join(rows)}</g>
-  </g>
-  <rect x="0.5" y="0.5" width="1199" height="199" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+tiles = []
+for i, (name, key) in enumerate(AGENTS):
+    tiles.append(f"""<g transform="translate({i * 340 + 20} 0)"><g class="tile" style="animation-delay:{i * 60}ms">
+      <rect width="256" height="256" rx="60" fill="#242938"/>
+      <g transform="translate(53 53) scale(6.25)" color="#e6edf3">{mark(key)}</g>
+      <text x="128" y="334" text-anchor="middle">{name}</text>
+    </g></g>""")
+AW = len(AGENTS) * 340 - 44
+agents = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{AW}" height="356" viewBox="0 0 {AW} 356" role="img" aria-label="Agents I build with: {", ".join(n for n, _ in AGENTS)}">
+  <style>
+    text {{ font-family: {SANS}; font-size: 54px; fill: #8b949e; }}
+    .tile {{ animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }}
+    @keyframes rise {{ from {{ opacity: 0; transform: translateY(24px); }} }}
+    @media (prefers-reduced-motion: reduce) {{ .tile {{ animation: none; }} }}
+  </style>
+  {"".join(tiles)}
 </svg>
 '''
 
@@ -303,111 +270,85 @@ terminal = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="{H}"
 
 # ---------------------------------------------------------------- footer
 footer = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="64" viewBox="0 0 1200 64" role="img" aria-label="Seismograph trace">
-  <defs>
-    <linearGradient id="fink" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#6e95a4" stop-opacity="0"/>
-      <stop offset="0.3" stop-color="#6e95a4"/>
-      <stop offset="0.5" stop-color="#ff6a3d"/>
-      <stop offset="0.7" stop-color="#a0cbad"/>
-      <stop offset="1" stop-color="#a0cbad" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <path d="{FOOTER_PATH}" fill="none" stroke="url(#fink)" stroke-width="1.5" pathLength="1" stroke-dasharray="1 1">
-    <animate attributeName="stroke-dashoffset" values="1;0;0" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite"/>
-  </path>
+  <style>
+    path {{ stroke-dasharray: 1 1; animation: draw 6s ease-out both; }}
+    @keyframes draw {{ from {{ stroke-dashoffset: 1; }} to {{ stroke-dashoffset: 0; }} }}
+    @media (prefers-reduced-motion: reduce) {{ path {{ animation: none; }} }}
+  </style>
+  <path d="{FOOTER_PATH}" fill="none" stroke="#6e95a4" stroke-opacity="0.7" stroke-width="1.5" pathLength="1"/>
 </svg>
 '''
 
-# ---------------------------------------------------------------- project cards
-# One clickable card per project. The README links each image to its url.
-ACCENT = {"ai": "#7cc4ff", "cyber": "#ff6a3d", "seismic": "#a0cbad", "build": "#c4a7ff"}
+# ---------------------------------------------------------------- highlight cards
+# Four cards for the main projects; everything else is a plain table in the README.
+# Flat surfaces, one accent per card, no gradients. Motion is CSS so reduced-motion can switch it off.
+ACCENT = {"ai": "#7cc4ff", "cyber": "#ff6a3d", "seismic": "#a0cbad"}
 
-def card_glyph(kind, c):
+def card_glyph(kind):
     if kind == "ai":
-        nodes = [(-14, 8), (0, -12), (14, 8), (0, 2)]
+        nodes = [(-13, 8), (0, -11), (13, 8), (0, 2)]
         lines = "".join(f'<line x1="{a[0]}" y1="{a[1]}" x2="{b[0]}" y2="{b[1]}"/>' for a, b in [(nodes[0], nodes[1]), (nodes[1], nodes[2]), (nodes[0], nodes[3]), (nodes[2], nodes[3]), (nodes[1], nodes[3])])
-        dots = "".join(f'<circle cx="{x}" cy="{y}" r="4" fill="{c}"><animate attributeName="r" values="3;5.5;3" dur="2.4s" begin="{i * 0.6}s" repeatCount="indefinite"/><animate attributeName="fill-opacity" values="0.4;1;0.4" dur="2.4s" begin="{i * 0.6}s" repeatCount="indefinite"/></circle>' for i, (x, y) in enumerate(nodes))
-        return f'<g stroke="{c}" stroke-opacity="0.35" stroke-width="1.5">{lines}</g>{dots}'
+        dots = "".join(f'<circle class="pulse" style="animation-delay:{i * 0.6}s" cx="{x}" cy="{y}" r="4" fill="currentColor"/>' for i, (x, y) in enumerate(nodes))
+        return f'<g stroke="currentColor" stroke-opacity="0.4" stroke-width="1.5">{lines}</g>{dots}'
     if kind == "cyber":
-        return f"""<circle r="20" fill="none" stroke="{c}" stroke-opacity="0.35"/><circle r="11" fill="none" stroke="{c}" stroke-opacity="0.25"/>
-        <path d="M0 0 L0 -20 A20 20 0 0 1 17.3 -10 Z" fill="{c}" fill-opacity="0.35"><animateTransform attributeName="transform" type="rotate" values="0;360" dur="3s" repeatCount="indefinite"/></path>
-        <circle cx="8" cy="-9" r="2.5" fill="{c}"><animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/></circle>"""
+        return """<circle r="17" fill="none" stroke="currentColor" stroke-opacity="0.4"/><circle r="9" fill="none" stroke="currentColor" stroke-opacity="0.3"/>
+        <path class="spin" d="M0 0V-17A17 17 0 0 1 14.7 -8.5Z" fill="currentColor" fill-opacity="0.45"/>"""
     if kind == "seismic":
         wave = "M-60 0 " + " ".join(f"L{x} {(-9 if (x // 4) % 2 else 9) * (1 if abs(x % 60 - 30) < 12 else 0.25):.1f}" for x in range(-56, 64, 4))
-        return f"""<clipPath id="wc"><rect x="-24" y="-16" width="48" height="32"/></clipPath>
-        <g clip-path="url(#wc)"><path d="{wave}" fill="none" stroke="{c}" stroke-width="1.8" stroke-linejoin="round"><animateTransform attributeName="transform" type="translate" values="0 0;-60 0" dur="2.4s" repeatCount="indefinite"/></path></g>"""
-    if kind == "build":
-        return f"""<path d="M-8 -10 L-18 0 L-8 10 M8 -10 L18 0 L8 10" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="-1.5" y="-9" width="3" height="18" fill="{c}"><animate attributeName="opacity" values="1;0;1" dur="1s" calcMode="discrete" repeatCount="indefinite"/></rect>"""
+        return f"""<clipPath id="wc"><rect x="-20" y="-14" width="40" height="28"/></clipPath>
+        <g clip-path="url(#wc)"><path class="scroll" d="{wave}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></g>"""
     raise KeyError(kind)
 
-# (slug, kind, eyebrow, title, line, chips, url)
+# (slug, kind, title, context, sentence lines, stack, url)
 CARDS = [
-    ("lipisort", "ai", "PEOPLE'S CHOICE · UTS TECH FEST 2026", "LiPi Sort", "Reads handwritten postcodes. A robot arm sorts the mail.", ["YOLO11s", "EasyOCR", "SO-101"], "https://amansinghnp.com/writing/lipisort-deeplearning"),
-    ("memora", "ai", "SLACK AGENT BUILDER CHALLENGE", "Memora", "A Slack agent that remembers what your team decided.", ["LLM agents", "Slack API"], "https://amansinghnp.com/projects/memora"),
-    ("klarity", "ai", "EDUX HACKATHON 2026", "Klarity", "Learn by teaching an AI that is wrong on purpose.", ["TypeScript", "LLMs"], "https://amansinghnp.com/projects/klarity"),
-    ("crowdcal", "ai", "RESEARCH", "crowdcal", "Does 70% confidence mean 70% of people agree?", ["calibration", "evals", "Python"], "https://github.com/AmanSinghNp/crowdcal"),
-    ("palmlab", "ai", "LIVE DEMO", "PalmLab", "Sculpt 3D clay with your hands, in the browser.", ["MediaPipe", "React Three Fiber"], "https://amansinghnp.github.io/palmlab-gesture-playground/"),
-    ("asl", "ai", "COMPUTER VISION", "ASL Interpreter", "Fingerspelling from hand landmarks on a 24.5 KB model.", ["MediaPipe", "TFLite"], "https://github.com/AmanSinghNp/ASL-Interpreter-AI"),
-    ("day-zero", "cyber", "OCT 2026 · 17 MIN READ", "Day zero", "Seven incidents in ten days, and what AI changes.", ["PHP2Shell", "LiteLLM", "OpenCode"], "https://amansinghnp.com/writing/day-zero"),
-    ("railway", "cyber", "OCT 2026 · 10 MIN READ", "Railway breach", "What leaked, and the order to rotate your secrets.", ["LLMjacking", "secrets"], "https://amansinghnp.com/writing/railway-breach"),
-    ("php2shell", "cyber", "OCT 2026 · 13 MIN READ", "PHP2Shell", "Two unauthenticated RCEs in PHP. What to patch first.", ["RCE", "54 sources"], "https://amansinghnp.com/writing/php2shell"),
-    ("canvas", "cyber", "UTS CYBERSECURITY TECH FEST 2026", "Canvas breach", "One support ticket opened Canvas LMS. Our IR plan.", ["MITRE ATT&CK", "ACSC"], "https://amansinghnp.com/writing/canvas-breach"),
-    ("basalt", "seismic", "C++ · SIMD", "Basalt", "Bare-metal f-k noise attenuation for seismic data.", ["mmap", "memory arenas"], "https://github.com/AmanSinghNp/Basalt"),
-    ("fast-trigger", "seismic", "C++23 · PYTHON", "fast-trigger", "STA/LTA earthquake detection, batched with OpenMP.", ["pybind11", "OpenMP"], "https://github.com/AmanSinghNp/fast-trigger"),
-    ("torch-friction", "seismic", "PYTORCH · PINNS", "torch-friction", "Rate-and-state fault friction you can backprop through.", ["autograd", "physics-informed"], "https://github.com/AmanSinghNp/torch-friction"),
-    ("seismic-linter", "seismic", "ON PYPI", "seismic-linter", "Catches future data leaking into seismic ML training.", ["MLOps", "time series"], "https://github.com/AmanSinghNp/seismic-linter"),
-    ("mini-js", "build", "55 APPS · NO FRAMEWORKS", "Mini JS Projects", "Ray caster, order book, Black-Scholes, code editor.", ["JavaScript", "Canvas 2D"], "https://github.com/AmanSinghNp/Mini-JavaScript-Projects"),
-    ("splitsmart", "build", "NATIVE IOS", "SplitSmart", "Split bills and scan receipts with VisionKit OCR.", ["SwiftUI", "VisionKit"], "https://github.com/AmanSinghNp/SplitSmart-iOS"),
+    ("lipisort", "ai", "LiPi Sort", "People's Choice, UTS Tech Fest 2026",
+     ["Reads handwritten postcodes off postcards,", "then a robot arm sorts them."],
+     "YOLO11s, EasyOCR, SO-101 arm", "https://amansinghnp.com/writing/lipisort-deeplearning"),
+    ("memora", "ai", "Memora", "Slack Agent Builder Challenge",
+     ["A Slack agent that remembers what your", "team decided, and says how sure it is."],
+     "LLM agents, Slack API", "https://amansinghnp.com/projects/memora"),
+    ("basalt", "seismic", "Basalt", "Open source, C++",
+     ["Bare-metal f-k noise attenuation for", "seismic data, on mmap I/O and SIMD."],
+     "C++, x86-64 SIMD, memory arenas", "https://github.com/AmanSinghNp/Basalt"),
+    ("day-zero", "cyber", "Day zero", "October 2026, 17 minute read",
+     ["Seven security incidents in ten days, read", "from the primary sources."],
+     "PHP2Shell, LiteLLM, Railway, OpenCode", "https://amansinghnp.com/writing/day-zero"),
 ]
 
-def _shift(svg, phase):
-    """Start every SMIL animation in svg `phase` seconds into its cycle."""
-    def one(m):
-        tag = m.group(0)
-        b = re.search(r'begin="([\d.]+)s"', tag)
-        if b:
-            return tag.replace(b.group(0), f'begin="{float(b.group(1)) - phase:.2f}s"')
-        return re.sub(r"^<(\w+)", rf'<\1 begin="-{phase:.2f}s"', tag)
-    return re.sub(r"<animate(?:Transform)?\b[^>]*>", one, svg)
-
-def project_card(kind, eyebrow, title, line, chips, phase=0.0):
+def project_card(kind, title, context, sentence, stack):
     c = ACCENT[kind]
-    W, H = 600, 200
-    chip_svg, x = [], 28
-    for chip in chips:
-        w = len(chip) * 9.1 + 24
-        chip_svg.append(f'<g transform="translate({x:.0f} 146)"><rect width="{w:.0f}" height="30" rx="15" fill="{c}" fill-opacity="0.1" stroke="{c}" stroke-opacity="0.35"/><text x="{w / 2:.1f}" y="20.5" text-anchor="middle">{html.escape(chip)}</text></g>')
-        x += w + 8
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(title)}: {html.escape(line)}">
-  <defs>{card_defs(W, H)}
-    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{c}" stop-opacity="0.16"/><stop offset="0.6" stop-color="{c}" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="{c}" stop-opacity="0"/><stop offset="0.5" stop-color="{c}"/><stop offset="1" stop-color="{c}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <g clip-path="url(#card)">
-    <rect width="{W}" height="{H}" fill="url(#bg)"/>
-    <rect width="{W}" height="{H}" fill="url(#grid)"/>
-    <rect width="{W}" height="{H}" fill="url(#glow)"/>
-    <rect x="-200" y="0" width="200" height="2" fill="url(#edge)"><animate attributeName="x" values="-200;{W}" dur="5s" begin="-{phase:.2f}s" repeatCount="indefinite"/></rect>
-    <rect x="0" y="0" width="4" height="{H}" fill="{c}" fill-opacity="0.85"/>
-    <text x="28" y="44" font-family="{MONO}" font-size="15" letter-spacing="1.2" fill="{c}">{html.escape(eyebrow)}</text>
-    <text x="28" y="90" font-family="{SANS}" font-size="34" font-weight="700" letter-spacing="-0.5" fill="#f4f7f9">{html.escape(title)}</text>
-    <text x="28" y="125" font-family="{SANS}" font-size="19" fill="#a9bacb">{html.escape(line)}</text>
-    <g font-family="{MONO}" font-size="15" fill="#d5e0e6">{"".join(chip_svg)}</g>
-    <g transform="translate({W - 56} 58)">{_shift(card_glyph(kind, c), phase)}</g>
-    <path d="M{W - 44} 172 L{W - 30} 158 M{W - 41} 158 H{W - 30} V169" fill="none" stroke="#6e95a4" stroke-width="2" stroke-linecap="round"/>
-  </g>
-  <rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+    W, H = 600, 262
+    body = "".join(f'<text x="28" y="{152 + i * 31}" class="body">{html.escape(l)}</text>' for i, l in enumerate(sentence))
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(title)}. {html.escape(" ".join(sentence))}">
+  <style>
+    text {{ font-family: {SANS}; }}
+    .title {{ font-size: 36px; font-weight: 700; fill: #f0f3f6; }}
+    .context {{ font-size: 19px; fill: #8b949e; }}
+    .body {{ font-size: 22px; fill: #c9d1d9; }}
+    .stack {{ font-size: 19px; fill: #6e95a4; }}
+    .pulse {{ animation: pulse 2.4s ease-in-out infinite; }}
+    @keyframes pulse {{ 50% {{ opacity: 0.35; }} }}
+    .spin {{ transform-origin: 0 0; animation: spin 3s linear infinite; }}
+    @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
+    .scroll {{ animation: scroll 2.4s linear infinite; }}
+    @keyframes scroll {{ to {{ transform: translateX(-60px); }} }}
+    @media (prefers-reduced-motion: reduce) {{ .pulse, .spin, .scroll {{ animation: none; }} }}
+  </style>
+  <rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="#0d1117" stroke="#30363d"/>
+  <rect x="28" y="28" width="68" height="68" rx="14" fill="{c}" fill-opacity="0.12"/>
+  <g transform="translate(62 62)" color="{c}">{card_glyph(kind)}</g>
+  <text x="116" y="62" class="title">{html.escape(title)}</text>
+  <text x="116" y="90" class="context">{html.escape(context)}</text>
+  {body}
+  <text x="28" y="{H - 28}" class="stack">{html.escape(stack)}</text>
 </svg>
 '''
 
-os.makedirs(os.path.join(OUT, "cards"), exist_ok=True)
-for i, (slug, kind, eyebrow, title, line, chips, url) in enumerate(CARDS):
-    open(os.path.join(OUT, "cards", f"{slug}.svg"), "w").write(project_card(kind, eyebrow, title, line, chips, phase=(i * 1.7) % 5))
+import shutil
+shutil.rmtree(os.path.join(OUT, "cards"), ignore_errors=True)
+os.makedirs(os.path.join(OUT, "cards"))
+for slug, kind, title, context, sentence, stack, url in CARDS:
+    open(os.path.join(OUT, "cards", f"{slug}.svg"), "w").write(project_card(kind, title, context, sentence, stack))
 
 for name, svg in [("banner", banner), ("agents", agents), ("terminal", terminal), ("footer", footer)]:
     open(os.path.join(OUT, f"{name}.svg"), "w").write(svg)
