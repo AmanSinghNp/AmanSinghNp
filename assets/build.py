@@ -17,7 +17,24 @@ def trace(x0, x1, base, step, events, noise=1.6):
     return "M"+" L".join(f"{a:.0f} {b:.1f}" for a,b in pts)
 
 random.seed(7)
-BANNER_PATH = trace(0, 1200, 292, 3, [(640, 14, 40, 0.9), (735, 46, 70, 0.75), (900, 12, 60, 1.1)])
+# The banner is a drum seismograph: the pen stays put and the paper scrolls under it. PAPER_Y is one
+# period of paper; the banner scrolls two copies of it, so the last sample repeats the first.
+PAPER, STEP, PEN_X, BASE_Y, SCROLL_S = 1200, 3, 1041, 292, 14
+def paper_trace():
+    ys = []
+    for x in range(0, PAPER, STEP):
+        y = random.gauss(0, 1.6)
+        for ex, amp, decay, freq in [(170, 9, 30, 1.0), (560, 14, 40, 0.9), (650, 46, 70, 0.75), (830, 12, 60, 1.1)]:
+            if x >= ex:
+                t = x - ex
+                y += amp * math.exp(-t / decay) * (1 - math.exp(-t / 6)) * math.sin(t * freq + random.uniform(-.5, .5)) * random.uniform(.6, 1)
+        ys.append(y)
+    return ys
+PAPER_Y = paper_trace()
+N = len(PAPER_Y)
+BANNER_PATH = "M" + " L".join(f"{i * STEP} {BASE_Y + PAPER_Y[i % N]:.1f}" for i in range(2 * N + 1))
+# Where the pen sits on the paper at each moment of one scroll period.
+PEN_CY = ";".join(f"{BASE_Y + PAPER_Y[(PEN_X // STEP + k) % N]:.1f}" for k in range(N + 1))
 FOOTER_PATH = trace(0, 1200, 30, 3, [(520, 8, 40, 0.9), (600, 16, 60, 0.8)], noise=1.0)
 MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
 SERIF = "'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif"
@@ -61,18 +78,15 @@ banner = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" v
       <stop offset="1" stop-color="#ffffff"/>
       <animateTransform attributeName="gradientTransform" type="translate" values="-1 0;-1 0;1 0" keyTimes="0;0.55;1" dur="7s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="ink" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+    <linearGradient id="ink" x1="0" y1="0" x2="{PAPER}" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
       <stop offset="0" stop-color="#6e95a4"/>
-      <stop offset="0.5" stop-color="#a0cbad"/>
-      <stop offset="0.62" stop-color="#ff6a3d"/>
-      <stop offset="0.8" stop-color="#ffb199"/>
+      <stop offset="0.4" stop-color="#a0cbad"/>
+      <stop offset="0.53" stop-color="#ff6a3d"/>
+      <stop offset="0.72" stop-color="#ffb199"/>
+      <stop offset="0.9" stop-color="#6e95a4"/>
       <stop offset="1" stop-color="#6e95a4"/>
     </linearGradient>
-    <linearGradient id="scan" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#a0cbad" stop-opacity="0"/>
-      <stop offset="0.85" stop-color="#a0cbad" stop-opacity="0.07"/>
-      <stop offset="1" stop-color="#a0cbad" stop-opacity="0"/>
-    </linearGradient>
+    <clipPath id="recorded"><rect x="0" y="62" width="{PEN_X}" height="298"/></clipPath>
     <clipPath id="below"><rect x="560" y="64" width="640" height="270"/></clipPath>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
   </defs>
@@ -123,27 +137,19 @@ banner = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" v
       {"".join(rot)}
     </g>
 
-    <!-- seismograph -->
-    <path d="{BANNER_PATH}" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.2"/>
-    <path d="{BANNER_PATH}" fill="none" stroke="url(#ink)" stroke-width="3" stroke-opacity="0.5" filter="url(#soft)" pathLength="1" stroke-dasharray="1 1">
-      <animate attributeName="stroke-dashoffset" values="1;0;0;-1" keyTimes="0;0.62;0.86;1" dur="9s" repeatCount="indefinite"/>
-    </path>
-    <path id="trace" d="{BANNER_PATH}" fill="none" stroke="url(#ink)" stroke-width="1.6" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1">
-      <animate attributeName="stroke-dashoffset" values="1;0;0;-1" keyTimes="0;0.62;0.86;1" dur="9s" repeatCount="indefinite"/>
-    </path>
-    <g>
-      <circle r="9" fill="#ff6a3d" opacity="0.25"/>
-      <circle r="3.5" fill="#ffe2d8"/>
-      <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1;1;1" keyTimes="0;0.62;0.86;1" calcMode="linear"><mpath href="#trace"/></animateMotion>
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.62;0.66;1" dur="9s" repeatCount="indefinite"/>
+    <!-- seismograph: the paper scrolls left under a fixed pen -->
+    <g clip-path="url(#recorded)">
+      <g>
+        <path d="{BANNER_PATH}" fill="none" stroke="url(#ink)" stroke-width="3" stroke-opacity="0.45" filter="url(#soft)"/>
+        <path d="{BANNER_PATH}" fill="none" stroke="url(#ink)" stroke-width="1.6" stroke-linejoin="round"/>
+        <g stroke="#6e95a4" stroke-opacity="0.45">{"".join(f'<line x1="{x}" y1="{338 if x % 300 else 332}" x2="{x}" y2="346"/>' for x in range(0, 2 * PAPER + 1, 100))}</g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;-{PAPER} 0" dur="{SCROLL_S}s" repeatCount="indefinite"/>
+      </g>
     </g>
-    <rect x="-160" y="62" width="160" height="298" fill="url(#scan)">
-      <animate attributeName="x" values="-160;1200" dur="9s" repeatCount="indefinite"/>
-    </rect>
-
-    <!-- time axis -->
-    <g class="mono" font-size="12" fill="#6e95a4" fill-opacity="0.7">
-      {"".join(f'<line x1="{x}" y1="340" x2="{x}" y2="346" stroke="#6e95a4" stroke-opacity="0.5"/><text x="{x+6}" y="347">T+{i*15:02d}s</text>' for i, x in enumerate(range(64, 1100, 206)))}
+    <line x1="{PEN_X}" y1="64" x2="{PEN_X}" y2="346" stroke="#ff8a66" stroke-opacity="0.18" stroke-dasharray="3 5"/>
+    <g>
+      <circle cx="{PEN_X}" r="9" fill="#ff6a3d" opacity="0.25"><animate attributeName="cy" values="{PEN_CY}" dur="{SCROLL_S}s" repeatCount="indefinite"/></circle>
+      <circle cx="{PEN_X}" r="3.5" fill="#ffe2d8"><animate attributeName="cy" values="{PEN_CY}" dur="{SCROLL_S}s" repeatCount="indefinite"/></circle>
     </g>
   </g>
   <rect x="0.5" y="0.5" width="1199" height="359" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
