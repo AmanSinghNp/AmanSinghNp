@@ -1,5 +1,5 @@
 """Builds the animated SVGs in this folder. Edit the data below, then run: python3 assets/build.py"""
-import html, os
+import html, os, re
 OUT = os.path.dirname(os.path.abspath(__file__))
 import math, random
 def trace(x0, x1, base, step, events, noise=1.6):
@@ -143,7 +143,7 @@ banner = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" v
 
     <!-- time axis -->
     <g class="mono" font-size="12" fill="#6e95a4" fill-opacity="0.7">
-      {"".join(f'<line x1="{x}" y1="340" x2="{x}" y2="346" stroke="#6e95a4" stroke-opacity="0.5"/><text x="{x+6}" y="347">T+{i*15:02d}s</text>' for i, x in enumerate(range(64, 1140, 214)))}
+      {"".join(f'<line x1="{x}" y1="340" x2="{x}" y2="346" stroke="#6e95a4" stroke-opacity="0.5"/><text x="{x+6}" y="347">T+{i*15:02d}s</text>' for i, x in enumerate(range(64, 1100, 206)))}
     </g>
   </g>
   <rect x="0.5" y="0.5" width="1199" height="359" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
@@ -159,7 +159,7 @@ def glyph(kind, color):
     if kind == "codex":
         return f'<path d="M-6 -4 L-1.5 0 L-6 4 M0 5 H6" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
     if kind == "deepseek":
-        return f'<path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="{c}" stroke-width="2" stroke-linecap="round"/>'
+        return f'<path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="{c}"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/>'
     if kind == "mistral":
         cols = ["#ffd800", "#ffaf00", "#ff8205", "#fa500f"]
         return "".join(f'<rect x="{-7 + (i % 2) * 7}" y="{-7 + (i // 2) * 7}" width="6" height="6" fill="{cols[i]}"/>' for i in range(4))
@@ -223,7 +223,7 @@ agents = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" v
     <rect width="1200" height="200" fill="url(#grid)"/>
     <g font-family="{MONO}" font-size="14" letter-spacing="1.5" fill="#6e95a4">
       <text x="40" y="38">// AGENTS IN THE LOOP</text>
-      <text x="1160" y="38" text-anchor="end">11 MODELS  ·  1 TERMINAL</text>
+      <text x="1160" y="38" text-anchor="end">11 TOOLS  ·  1 TERMINAL</text>
     </g>
     <g mask="url(#edges)">{"".join(rows)}</g>
   </g>
@@ -361,7 +361,17 @@ CARDS = [
     ("splitsmart", "build", "NATIVE IOS", "SplitSmart", "Split bills and scan receipts with VisionKit OCR.", ["SwiftUI", "VisionKit"], "https://github.com/AmanSinghNp/SplitSmart-iOS"),
 ]
 
-def project_card(kind, eyebrow, title, line, chips):
+def _shift(svg, phase):
+    """Start every SMIL animation in svg `phase` seconds into its cycle."""
+    def one(m):
+        tag = m.group(0)
+        b = re.search(r'begin="([\d.]+)s"', tag)
+        if b:
+            return tag.replace(b.group(0), f'begin="{float(b.group(1)) - phase:.2f}s"')
+        return re.sub(r"^<(\w+)", rf'<\1 begin="-{phase:.2f}s"', tag)
+    return re.sub(r"<animate(?:Transform)?\b[^>]*>", one, svg)
+
+def project_card(kind, eyebrow, title, line, chips, phase=0.0):
     c = ACCENT[kind]
     W, H = 600, 200
     chip_svg, x = [], 28
@@ -382,13 +392,13 @@ def project_card(kind, eyebrow, title, line, chips):
     <rect width="{W}" height="{H}" fill="url(#bg)"/>
     <rect width="{W}" height="{H}" fill="url(#grid)"/>
     <rect width="{W}" height="{H}" fill="url(#glow)"/>
-    <rect x="-200" y="0" width="200" height="2" fill="url(#edge)"><animate attributeName="x" values="-200;{W}" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="-200" y="0" width="200" height="2" fill="url(#edge)"><animate attributeName="x" values="-200;{W}" dur="5s" begin="-{phase:.2f}s" repeatCount="indefinite"/></rect>
     <rect x="0" y="0" width="4" height="{H}" fill="{c}" fill-opacity="0.85"/>
     <text x="28" y="44" font-family="{MONO}" font-size="15" letter-spacing="1.2" fill="{c}">{html.escape(eyebrow)}</text>
     <text x="28" y="90" font-family="{SANS}" font-size="34" font-weight="700" letter-spacing="-0.5" fill="#f4f7f9">{html.escape(title)}</text>
     <text x="28" y="125" font-family="{SANS}" font-size="19" fill="#a9bacb">{html.escape(line)}</text>
     <g font-family="{MONO}" font-size="15" fill="#d5e0e6">{"".join(chip_svg)}</g>
-    <g transform="translate({W - 56} 58)">{card_glyph(kind, c)}</g>
+    <g transform="translate({W - 56} 58)">{_shift(card_glyph(kind, c), phase)}</g>
     <path d="M{W - 44} 172 L{W - 30} 158 M{W - 41} 158 H{W - 30} V169" fill="none" stroke="#6e95a4" stroke-width="2" stroke-linecap="round"/>
   </g>
   <rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
@@ -396,8 +406,8 @@ def project_card(kind, eyebrow, title, line, chips):
 '''
 
 os.makedirs(os.path.join(OUT, "cards"), exist_ok=True)
-for slug, kind, eyebrow, title, line, chips, url in CARDS:
-    open(os.path.join(OUT, "cards", f"{slug}.svg"), "w").write(project_card(kind, eyebrow, title, line, chips))
+for i, (slug, kind, eyebrow, title, line, chips, url) in enumerate(CARDS):
+    open(os.path.join(OUT, "cards", f"{slug}.svg"), "w").write(project_card(kind, eyebrow, title, line, chips, phase=(i * 1.7) % 5))
 
 for name, svg in [("banner", banner), ("agents", agents), ("terminal", terminal), ("footer", footer)]:
     open(os.path.join(OUT, f"{name}.svg"), "w").write(svg)

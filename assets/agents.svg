@@ -20,7 +20,7 @@
     <rect width="1200" height="200" fill="url(#grid)"/>
     <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" letter-spacing="1.5" fill="#6e95a4">
       <text x="40" y="38">// AGENTS IN THE LOOP</text>
-      <text x="1160" y="38" text-anchor="end">11 MODELS  ·  1 TERMINAL</text>
+      <text x="1160" y="38" text-anchor="end">11 TOOLS  ·  1 TERMINAL</text>
     </g>
     <g mask="url(#edges)"><g transform="translate(0 64)"><g transform="translate(0 0)"><g transform="translate(0 0)">
         <rect width="119" height="44" rx="22" fill="#0f1730" stroke="#d97757" stroke-opacity="0.45"/>
@@ -35,7 +35,7 @@
       </g><g transform="translate(260 0)">
         <rect width="140" height="44" rx="22" fill="#0f1730" stroke="#4d6bfe" stroke-opacity="0.45"/>
         <circle cx="24" cy="22" r="14" fill="#4d6bfe" fill-opacity="0.12"/>
-        <g transform="translate(24 22)"><path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="#4d6bfe" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="#4d6bfe" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="translate(24 22)"><path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="#4d6bfe"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/></g>
         <text x="46" y="28.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">DeepSeek</text>
       </g><g transform="translate(416 0)">
         <rect width="129" height="44" rx="22" fill="#0f1730" stroke="#fa520f" stroke-opacity="0.45"/>
@@ -65,7 +65,7 @@
       </g><g transform="translate(260 0)">
         <rect width="140" height="44" rx="22" fill="#0f1730" stroke="#4d6bfe" stroke-opacity="0.45"/>
         <circle cx="24" cy="22" r="14" fill="#4d6bfe" fill-opacity="0.12"/>
-        <g transform="translate(24 22)"><path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="#4d6bfe" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="#4d6bfe" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="translate(24 22)"><path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="#4d6bfe"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/></g>
         <text x="46" y="28.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">DeepSeek</text>
       </g><g transform="translate(416 0)">
         <rect width="129" height="44" rx="22" fill="#0f1730" stroke="#fa520f" stroke-opacity="0.45"/>
@@ -95,7 +95,7 @@
       </g><g transform="translate(260 0)">
         <rect width="140" height="44" rx="22" fill="#0f1730" stroke="#4d6bfe" stroke-opacity="0.45"/>
         <circle cx="24" cy="22" r="14" fill="#4d6bfe" fill-opacity="0.12"/>
-        <g transform="translate(24 22)"><path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="#4d6bfe" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="#4d6bfe" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="translate(24 22)"><path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="#4d6bfe"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/></g>
         <text x="46" y="28.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">DeepSeek</text>
       </g><g transform="translate(416 0)">
         <rect width="129" height="44" rx="22" fill="#0f1730" stroke="#fa520f" stroke-opacity="0.45"/>
@@ -125,7 +125,7 @@
       </g><g transform="translate(260 0)">
         <rect width="140" height="44" rx="22" fill="#0f1730" stroke="#4d6bfe" stroke-opacity="0.45"/>
         <circle cx="24" cy="22" r="14" fill="#4d6bfe" fill-opacity="0.12"/>
-        <g transform="translate(24 22)"><path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="#4d6bfe" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="#4d6bfe" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="translate(24 22)"><path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="#4d6bfe"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/></g>
         <text x="46" y="28.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">DeepSeek</text>
       </g><g transform="translate(416 0)">
         <rect width="129" height="44" rx="22" fill="#0f1730" stroke="#fa520f" stroke-opacity="0.45"/>
@@ -155,7 +155,7 @@
       </g><g transform="translate(260 0)">
         <rect width="140" height="44" rx="22" fill="#0f1730" stroke="#4d6bfe" stroke-opacity="0.45"/>
         <circle cx="24" cy="22" r="14" fill="#4d6bfe" fill-opacity="0.12"/>
-        <g transform="translate(24 22)"><path d="M-8 2 C-4 -6 4 -6 7 -1 C5 3 1 5 -3 4 M4 -2.5 h0.1" fill="none" stroke="#4d6bfe" stroke-width="2.2" stroke-linecap="round"/><path d="M7 -1 L9 -5 M7 -1 L10 1" stroke="#4d6bfe" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="translate(24 22)"><path d="M-9 1 C-9 -5 -2 -7 3 -4 C5 -3 6 -1 7 0 L10 -4 L9.5 2 L7 1.5 C5 5 0 6 -4 5 C-7 4.5 -9 3 -9 1 Z" fill="#4d6bfe"/><circle cx="-4" cy="-1" r="1.2" fill="#0f1730"/></g>
         <text x="46" y="28.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">DeepSeek</text>
       </g><g transform="translate(416 0)">
         <rect width="129" height="44" rx="22" fill="#0f1730" stroke="#fa520f" stroke-opacity="0.45"/>

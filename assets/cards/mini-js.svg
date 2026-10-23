@@ -19,14 +19,14 @@
     <rect width="600" height="200" fill="url(#bg)"/>
     <rect width="600" height="200" fill="url(#grid)"/>
     <rect width="600" height="200" fill="url(#glow)"/>
-    <rect x="-200" y="0" width="200" height="2" fill="url(#edge)"><animate attributeName="x" values="-200;600" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="-200" y="0" width="200" height="2" fill="url(#edge)"><animate attributeName="x" values="-200;600" dur="5s" begin="-3.80s" repeatCount="indefinite"/></rect>
     <rect x="0" y="0" width="4" height="200" fill="#c4a7ff" fill-opacity="0.85"/>
     <text x="28" y="44" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" letter-spacing="1.2" fill="#c4a7ff">55 APPS · NO FRAMEWORKS</text>
     <text x="28" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="-0.5" fill="#f4f7f9">Mini JS Projects</text>
     <text x="28" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#a9bacb">Ray caster, order book, Black-Scholes, code editor.</text>
     <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#d5e0e6"><g transform="translate(28 146)"><rect width="115" height="30" rx="15" fill="#c4a7ff" fill-opacity="0.1" stroke="#c4a7ff" stroke-opacity="0.35"/><text x="57.5" y="20.5" text-anchor="middle">JavaScript</text></g><g transform="translate(151 146)"><rect width="106" height="30" rx="15" fill="#c4a7ff" fill-opacity="0.1" stroke="#c4a7ff" stroke-opacity="0.35"/><text x="52.9" y="20.5" text-anchor="middle">Canvas 2D</text></g></g>
     <g transform="translate(544 58)"><path d="M-8 -10 L-18 0 L-8 10 M8 -10 L18 0 L8 10" fill="none" stroke="#c4a7ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="-1.5" y="-9" width="3" height="18" fill="#c4a7ff"><animate attributeName="opacity" values="1;0;1" dur="1s" calcMode="discrete" repeatCount="indefinite"/></rect></g>
+        <rect x="-1.5" y="-9" width="3" height="18" fill="#c4a7ff"><animate begin="-3.80s" attributeName="opacity" values="1;0;1" dur="1s" calcMode="discrete" repeatCount="indefinite"/></rect></g>
     <path d="M556 172 L570 158 M559 158 H570 V169" fill="none" stroke="#6e95a4" stroke-width="2" stroke-linecap="round"/>
   </g>
   <rect x="0.5" y="0.5" width="599" height="199" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
