@@ -4,9 +4,6 @@
       <stop offset="0" stop-color="#070a16"/>
       <stop offset="1" stop-color="#0c1326"/>
     </linearGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
-    </pattern>
     <clipPath id="card"><rect width="1200" height="326" rx="18"/></clipPath>
     <clipPath id="c0"><rect x="194.7" y="74" height="26" width="0"><animate attributeName="width" values="0;0;64;64;0" keyTimes="0;0.0300;0.0510;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c2"><rect x="194.7" y="130" height="26" width="0"><animate attributeName="width" values="0;0;113;113;0" keyTimes="0;0.0910;0.1295;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c5"><rect x="194.7" y="214" height="26" width="0"><animate attributeName="width" values="0;0;222;222;0" keyTimes="0;0.1870;0.2640;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c7"><rect x="194.7" y="270" height="26" width="0"><animate attributeName="width" values="0;0;282;282;0" keyTimes="0;0.3040;0.4020;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath>
   </defs>
