@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="326" viewBox="0 0 1200 326" role="img" aria-label="Terminal: whoami, Aman Singh, founding engineer at Gradstack and UTS graduate. Latest writing: day-zero, railway-breach, php2shell, memora-slack-agent.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070a16"/>
+      <stop offset="1" stop-color="#0c1326"/>
+    </linearGradient>
+    <clipPath id="card"><rect width="1200" height="326" rx="18"/></clipPath>
+    <clipPath id="c0"><rect x="194.7" y="74" height="26" width="0"><animate attributeName="width" values="0;0;64;64;0" keyTimes="0;0.0300;0.0510;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c2"><rect x="194.7" y="130" height="26" width="0"><animate attributeName="width" values="0;0;113;113;0" keyTimes="0;0.0910;0.1295;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c5"><rect x="194.7" y="214" height="26" width="0"><animate attributeName="width" values="0;0;222;222;0" keyTimes="0;0.1870;0.2640;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath><clipPath id="c7"><rect x="194.7" y="270" height="26" width="0"><animate attributeName="width" values="0;0;282;282;0" keyTimes="0;0.3040;0.4020;0.97;1" dur="20.0s" repeatCount="indefinite"/></rect></clipPath>
+  </defs>
+  <style>
+    .cursor { animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+  <g clip-path="url(#card)">
+    <rect width="1200" height="326" fill="url(#bg)"/>
+    <rect width="1200" height="44" fill="#ffffff" fill-opacity="0.03"/>
+    <line x1="0" y1="44" x2="1200" y2="44" stroke="#ffffff" stroke-opacity="0.07"/>
+    <circle cx="28" cy="22" r="6.5" fill="#ff5f57"/><circle cx="50" cy="22" r="6.5" fill="#febc2e"/><circle cx="72" cy="22" r="6.5" fill="#28c840"/>
+    <text x="600" y="27" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#6e95a4">aman@sydney: ~ (zsh)</text>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="16">
+      <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.0295;0.0300;0.97;1" dur="20.0s" repeatCount="indefinite"/>
+      <text x="36" y="92" fill="#a0cbad">aman@sydney ~ %</text>
+      <text x="194.7" y="92" fill="#f4f7f9" clip-path="url(#c0)">whoami</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.0735;0.0740;0.97;1" dur="20.0s" repeatCount="indefinite"/><text x="36" y="120" fill="#9fb3c8">Aman Singh. Founding engineer at Gradstack. UTS graduate.</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.0905;0.0910;0.97;1" dur="20.0s" repeatCount="indefinite"/>
+      <text x="36" y="148" fill="#a0cbad">aman@sydney ~ %</text>
+      <text x="194.7" y="148" fill="#f4f7f9" clip-path="url(#c2)">cat now.txt</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.1520;0.1525;0.97;1" dur="20.0s" repeatCount="indefinite"/><text x="36" y="176" fill="#9fb3c8">Building verified skills profiles and an AI fluency index at Gradstack.</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.1695;0.1700;0.97;1" dur="20.0s" repeatCount="indefinite"/><text x="36" y="204" fill="#9fb3c8">Writing up security incidents the week they land.</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.1865;0.1870;0.97;1" dur="20.0s" repeatCount="indefinite"/>
+      <text x="36" y="232" fill="#a0cbad">aman@sydney ~ %</text>
+      <text x="194.7" y="232" fill="#f4f7f9" clip-path="url(#c5)">ls ~/writing | head -4</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.2865;0.2870;0.97;1" dur="20.0s" repeatCount="indefinite"/><text x="36.0" y="260" fill="#ff8a66">day-zero</text><text x="135.2" y="260" fill="#ff8a66">railway-breach</text><text x="293.9" y="260" fill="#ff8a66">php2shell</text><text x="403.0" y="260" fill="#7cc4ff">memora-slack-agent</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.3035;0.3040;0.97;1" dur="20.0s" repeatCount="indefinite"/>
+      <text x="36" y="288" fill="#a0cbad">aman@sydney ~ %</text>
+      <text x="194.7" y="288" fill="#f4f7f9" clip-path="url(#c7)">open https://amansinghnp.com</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4020;0.4025;0.97;1" dur="20.0s" repeatCount="indefinite"/><rect class="cursor" x="478.5" y="273" width="9" height="19" fill="#a0cbad"/></g>
+    </g>
+  </g>
+  <rect x="0.5" y="0.5" width="1199" height="325" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+</svg>

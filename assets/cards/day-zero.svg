@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="262" viewBox="0 0 600 262" role="img" aria-label="Day zero. Seven security incidents in ten days, read from the primary sources.">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+    .title { font-size: 36px; font-weight: 700; fill: #f0f3f6; }
+    .context { font-size: 19px; fill: #8b949e; }
+    .body { font-size: 22px; fill: #c9d1d9; }
+    .stack { font-size: 19px; fill: #6e95a4; }
+    .pulse { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: 0.35; } }
+    .spin { transform-origin: 0 0; animation: spin 3s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .scroll { animation: scroll 2.4s linear infinite; }
+    @keyframes scroll { to { transform: translateX(-60px); } }
+    @media (prefers-reduced-motion: reduce) { .pulse, .spin, .scroll { animation: none; } }
+  </style>
+  <rect x="0.5" y="0.5" width="599" height="261" rx="14" fill="#0d1117" stroke="#30363d"/>
+  <rect x="28" y="28" width="68" height="68" rx="14" fill="#ff6a3d" fill-opacity="0.12"/>
+  <g transform="translate(62 62)" color="#ff6a3d"><circle r="17" fill="none" stroke="currentColor" stroke-opacity="0.4"/><circle r="9" fill="none" stroke="currentColor" stroke-opacity="0.3"/>
+        <path class="spin" d="M0 0V-17A17 17 0 0 1 14.7 -8.5Z" fill="currentColor" fill-opacity="0.45"/></g>
+  <text x="116" y="62" class="title">Day zero</text>
+  <text x="116" y="90" class="context">October 2026, 17 minute read</text>
+  <text x="28" y="152" class="body">Seven security incidents in ten days, read</text><text x="28" y="183" class="body">from the primary sources.</text>
+  <text x="28" y="234" class="stack">PHP2Shell, LiteLLM, Railway, OpenCode</text>
+</svg>
